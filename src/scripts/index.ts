@@ -63,12 +63,24 @@ function multiplyTwoNumbers(numberOne: number, numberTwo: number):number{
   return numberOne * numberTwo
 }
 
-console.log(multiplyTwoNumbers(5, 5));
+console.log(multiplyTwoNumbers(5, 5))
+
+const multipleTwoNumbersArrow = (numOne: number, numTwo: number): number => numOne * numTwo;
+console.log(multipleTwoNumbersArrow(2,2))
 
 // write a function with an optional parameter
 
-function callMyParents(msg: string, subject?: string): string{
+function callMyParents(msg: string = 'Good morning', subject?: string): string{
   return `Hey Mom & Dad, I'm calling ${subject ? `about ${subject}` : ''}. ${msg}`
 }
+console.log(callMyParents());
 console.log(callMyParents(`Yo what's up?`));
 console.log(callMyParents(`I'm really sad`, `losing my favorite pencil`));
+
+// void type is used to define functions that don't implictly return something.
+
+function greetDog ():void {
+  console.log(`Hi Doggie`);
+}
+
+greetDog();
