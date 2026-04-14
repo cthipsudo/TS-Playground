@@ -1,4 +1,4 @@
-console.log('Hello World')
+//console.log('Hello World')
 
 /*============= Interfaces ==============*/
 
@@ -14,7 +14,6 @@ const user: User = { // Type Declaration for Objects
   id: 0,
 };
 
-console.log(user);
 
 interface User {
   name: string;
@@ -33,12 +32,9 @@ class UserAccount {
  
 const user2: User = new UserAccount("Murphy", 1);
 
-console.log(user2)
-
 const message: string = 'Hello World';
 
 console.log(message);
-console.log(Math.floor(11.2))
 
 // name, age, jobTitle, address: street, city
 const personExOne: {
@@ -58,5 +54,21 @@ const personExOne: {
   }
 }
 
-
 console.log(personExOne);
+
+
+// write a function that multiples a number
+
+function multiplyTwoNumbers(numberOne: number, numberTwo: number):number{
+  return numberOne * numberTwo
+}
+
+console.log(multiplyTwoNumbers(5, 5));
+
+// write a function with an optional parameter
+
+function callMyParents(msg: string, subject?: string): string{
+  return `Hey Mom & Dad, I'm calling ${subject ? `about ${subject}` : ''}. ${msg}`
+}
+console.log(callMyParents(`Yo what's up?`));
+console.log(callMyParents(`I'm really sad`, `losing my favorite pencil`));
