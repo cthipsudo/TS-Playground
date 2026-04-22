@@ -119,6 +119,27 @@ function getFirstThree(x: number[] | string) {
   return x.slice(0, 3);
 }
 
+// Intersection Types:
+// An intersection type combines multiple types into one
+// ====================================================================================================
+interface ArtistsData {
+  artists: { name: string }[];
+}
+interface ErrorHandling {
+  success: boolean;
+  error?: { message: string };
+}
+type ArtistsResponse = ArtistsData & ErrorHandling;
+
+const handleArtistsResponse = (response: ArtistsResponse) => {
+  if (response.error) {
+    console.error(response.error.message);
+    return;
+  }
+
+  console.log(response.artists);
+};
+
 // Type Alias:
 // A name for any TYPE
 // ====================================================================================================
@@ -155,4 +176,64 @@ function printCoord3(pt: Point2) {
 printCoord3({ x: 100, y: 100 });
 
 // Differences Between Type Aliases and Interfaces
-// Type aliases and interfaces are very similar, and in many cases you can choose between them freely. Almost all features of an interface are available in type, the key distinction is that a type cannot be re-opened to add new properties vs an interface which is always extendable.
+// Type aliases and interfaces are very similar, and in many cases you can choose between them freely.
+// Almost all features of an interface are available in type, the key distinction is that a type cannot
+// be re-opened to add new properties vs an interface which is always extendable.
+
+// Type Assertions:
+// you can use a type assertion to specify a more specific type
+// ====================================================================================================
+const myCanvas = document.getElementById("main_canvas") as HTMLCanvasElement;
+const myCanvas2 = <HTMLCanvasElement>document.getElementById("main_canvas");
+// or
+const req = { url: "https://example.com", method: "GET" } as const;
+
+// Literal Types:
+// Specific strings or numbers.
+// ====================================================================================================
+
+let x: "hello" = "hello";
+// OK
+x = "hello";
+// ...
+x = "howdy";
+//Type '"howdy"' is not assignable to type '"hello"'.
+
+function printText(s: string, alignment: "left" | "right" | "center") {
+  // ...
+}
+printText("Hello, world", "left");
+printText("G'day, mate", "centre"); // Throws error because centre is not an assignable type
+
+// Numeric Literals
+function compare(a: string, b: string): -1 | 0 | 1 {
+  return a === b ? 0 : a > b ? 1 : -1;
+}
+// This can be combined with non-literal types
+interface Options {
+  width: number;
+}
+function configure(x: Options | "auto") {
+  // ...
+}
+configure({ width: 100 });
+configure("auto");
+configure("automatic"); // Throws error
+
+// null and undefined:
+// depending on if strictNullChecks is ON or OFF. If on, you need to narrow for those values before using methods or properties on that value
+// ====================================================================================================
+
+function doSomething(x: string | null) {
+  if (x === null) {
+    // do nothing
+  } else {
+    console.log("Hello, " + x.toUpperCase());
+  }
+}
+
+// Same check but with special syntax
+function liveDangerously(x?: number | null) {
+  // No error
+  console.log(x!.toFixed());
+}
