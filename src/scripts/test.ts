@@ -162,3 +162,146 @@ function getUserDetails(user: User):string {
 
 const user: User = {name: 'Alice', age: 21};
 console.log(getUserDetails(user));
+const errorUser : User = {name: 'Bob'}; // Typescript will flag that age is missing
+
+// Intersection Type
+// A type that must satisfy all conditions, similar to union by not optional
+
+type Address = {
+  city: string,
+  state: string
+}
+
+type UserWithAddress = User & Address;
+
+function getUserDetails2(user: UserWithAddress): string {
+  return `${user.name} (${user.age} years old), lives in ${user.city}, ${user.state}`;
+}
+
+const user3: UserWithAddress = {
+  name: "Alice",
+  age: 30,
+  city: "New York",
+  state: "New York"
+};
+
+console.log(getUserDetails2(user3));
+// Output: "Alice (30 years old), lives in New York, USA"
+
+// Interface Type
+// Interface is a blueprint for an object
+
+interface UserI {
+  name: string,
+  age: number,
+  address: string
+}
+
+function getUserInfo(user: UserI): string {
+  return `${user.name} (${user.age} years old) lives at ${user.address}`;
+}
+
+const userI: UserI = {
+  name: "Alice",
+  age: 30,
+  address: "123 Main St",
+};
+
+console.log(getUserInfo(userI));
+
+// Differences between Type and Interface
+// How to Extend between the two
+// Interfaces:
+
+interface Address4 {
+  city: string,
+  state: string
+}
+
+interface User4 extends Address4{
+  name: string,
+  age: number
+}
+
+const user8: User4 = {
+  name: 'Bob',
+  age: 21,
+  city: 'Toronto',
+  state: 'Canada'
+}
+
+// Type Alias:
+
+type Address5 = {
+  city: string,
+  state: string
+}
+
+type User5 = {
+  name: string,
+  age: number
+} & Address5
+
+const user5: User5 = {
+  name: 'Sam',
+  age: 22,
+  city: 'Williams Town',
+  state: 'England'
+}
+
+// Advanced Interfaces:
+// Optional Properties and ReadOnly
+interface Player {
+  readonly name: string,
+  score?: number
+}
+
+// type Player2 = {
+//   readonly name: string,
+//   score? : number
+// }
+
+const player1 : Player = {
+  name: 'JON',
+  score: 2
+}
+// const player2: Player2 = {
+//   name: 'BEN',
+// }
+
+// function defined by interface
+interface Add {
+  (a: number, b: number) : number;
+}
+
+const add: Add = (a,b) => a+b;
+console.log(add(2,2)) // Outputs 4 
+
+// Index Signatures
+interface StringDictionary {
+  [key: string]: string;
+}
+
+const dictionary: StringDictionary = {
+  hello: "world",
+  name: "Alice",
+};
+
+// Interfaces can extend multiple interfaces:
+interface A {
+  propA: string;
+}
+
+interface B {
+  propB: number;
+}
+
+interface C extends A, B {
+  propC: boolean;
+}
+
+const obj: C = {
+  propA: "Hello",
+  propB: 42,
+  propC: true,
+};
