@@ -370,3 +370,19 @@ enum Direction {
 }
 
 console.log(Direction.Up); // Outputs: "UP"
+
+// We use tuples for fixed-lengthed array with different data types.
+// We use enums for named constants for readability
+
+// Type assertions
+// Tells the complier to treat the value as a specific type:
+
+const value2: unknown = 'Hello, world!!'
+
+const strLength: number = (value2 as string).length; // Starts out as unknown but here you specific it to be a string
+
+console.log(strLength);
+
+// Alternative way to write an assertion
+let num = <number>(10);
+
