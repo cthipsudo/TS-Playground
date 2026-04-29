@@ -386,3 +386,39 @@ console.log(strLength);
 // Alternative way to write an assertion
 let num = <number>(10);
 
+// Type unknown
+// A safer alternative to any, typescript requires a typecheck before using it 
+let data2: unknown;
+
+data2 = "Unknown";
+data2 = 21
+data2 = true;
+data2 = 'Hello'
+
+if (typeof data2 === 'string') {
+  console.log(data2.toUpperCase());
+}
+
+// Type Never
+// Used for functions that never return or throw an error
+function throwError(message: string): never {
+  throw new Error(message);
+}
+
+// throwError("Something went wrong!"); // This function never returns
+
+type Status4 = "success" | "failure";
+
+function checkStatus(status: Status4): void {
+  switch (status) {
+    case "success":
+      console.log("Operation was successful.");
+      break;
+    case "failure":
+      console.log("Operation failed.");
+      break;
+    default:
+      const unexpected: never = status; // Ensures all cases are handled
+  }
+}
+
