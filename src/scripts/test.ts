@@ -422,3 +422,88 @@ function checkStatus(status: Status4): void {
   }
 }
 
+// Generics in Typescript
+// Allows you to write flexible, reusable, type-safe code
+// instead of a fixed type, it allows interfaces, functions, and classes work with multiple types while maintaining type safety
+
+// Basic Generic Function
+
+function identity<T>(value: T):T {
+  return value;
+}
+
+console.log(identity<string>('Hello')); // Output: "Hello"
+console.log(identity<number>(42)); // Output: 42
+
+// <T> is the generic type parameter, allowing the identity function to work with any type.
+
+// Generics with Arrays:
+// This ensures it returns the samve type of array it recieves 
+function reverseArray<T>(arr: T[]):T[]{
+  return arr.reverse();
+}
+
+console.log(reverseArray([1,2,3]));
+console.log(reverseArray(["a", "b", "c"]));
+
+// Generics with Interfaces:
+// Allows to storing different types while maintaining consistency
+interface StorageBox<T> {
+  content: T
+}
+
+const numberBox: StorageBox<number> = { content: 42};
+const nameBox: StorageBox<string> = { content: 'Benny'};
+
+console.log(numberBox.content);
+console.log(nameBox.content);
+
+// Generics in classes
+class Queue<T> {
+  private items: T[] = [];
+
+  enqueue(item: T): void {
+    this.items.push(item);
+  }
+
+  dequeue(): T | undefined {
+    return this.items.shift();
+  }
+}
+
+const numberQueue = new Queue<number>();
+numberQueue.enqueue(10);
+numberQueue.enqueue(20);
+console.log(numberQueue.dequeue()); // Output: 10
+
+const stringQueue = new Queue<string>();
+stringQueue.enqueue("Hello");
+stringQueue.enqueue("World");
+console.log(stringQueue.dequeue()); // Output: "Hello"
+
+// Generics with multiple parameters
+function swap<T, U>(first: T, second: U): [U,T] {
+  return [second, first];
+}
+
+console.log(swap<string, number>('Oscar', 21)); // Outputs [21, 'Oscar'];
+console.log(swap<boolean, number>(false, 42)); // Outputs: [42, false];
+
+// Generics with contraints
+// Contraits ensure the type has specific properties
+
+function getLength<T extends {length: number}>(item: T):number {
+  return item.length;
+}
+
+console.log(getLength('Hello')); // Output: 5
+console.log(getLength([1,2,3])); // Output: 3
+
+function getProperty<T,K extends keyof T>(obj: T, key:K):T[K]{
+  return obj[key]
+}
+
+let user6 = { name: "Albert", age: 30 };
+
+console.log(getProperty(user6, 'name'));
+console.log(getProperty(user6, 'age'));
