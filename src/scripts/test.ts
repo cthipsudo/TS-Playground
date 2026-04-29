@@ -305,3 +305,68 @@ const obj: C = {
   propB: 42,
   propC: true,
 };
+
+
+// When to use interfaces vs types:
+// Use interfaces when you need to define object shapes, especially if you plan on extending them, also use interfaces if you need declaration merging
+// use type aliases for more complex types, such as unions or intersections
+
+// Tuples and Enums
+// A Tuple a special array that has a fixed number of elements, the order is also fixed.
+const user10: [ string, number] = ['Nancy', 21];
+
+console.log(user10[0]);
+console.log(user10[1]);
+
+// A Tuple with optional elements
+const player4: [string, number, boolean?] = ['Benny', 100];
+console.log(player4[0]);
+console.log(player4[1]);
+
+// Tuple with readonly
+const coordinates: readonly [number, number] = [10, 20];
+coordinates[0] = 50; // readonly prevents modifying all tuple values 
+
+// Enums
+// By default TypeScript assigns values, starting from 0
+enum Status {
+  Pending,   // 0
+  InProgress, // 1
+  Completed,  // 2
+}
+
+function getStatusText(status: Status):string {
+  switch(status){
+    case Status.Pending:
+      return 'Order is pending';
+    case Status.InProgress:
+      return 'Order is in progress';
+    case Status.Completed:
+      return 'Order is completed';
+    default: 
+      return 'unknown status'
+  }
+}
+
+console.log(getStatusText(Status.InProgress)); // Outputs: "Order is in progress"
+
+console.log(Status.Pending);   // Output: 0
+console.log(Status.Completed); // Output: 2
+
+// Custom values in Enums
+enum orderStatus {
+  Pending = 0,
+  Shipped = 5,
+  Delivered = 10,
+}
+
+console.log(orderStatus.Shipped) // Output: 5
+
+enum Direction {
+  Up = "UP",
+  Down = "DOWN",
+  Left = "LEFT",
+  Right = "RIGHT"
+}
+
+console.log(Direction.Up); // Outputs: "UP"
