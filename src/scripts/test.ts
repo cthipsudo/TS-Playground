@@ -113,4 +113,27 @@ function priceUp(num: number):number | string {
 
 console.log(priceUp(2));
 
+// Rest Params with words
+// using rest lets you handle multiple arguments if the total amount isn't fixed
+function joinWords(...words:string[]):string{
+  return words.join(' ');
+}
 
+const greeting = joinWords('Hello', 'My dude', "I'm", 'so', 'excited');
+console.log(greeting);
+
+// Rest params with numbers
+function addAllNumbers(...nums: number[]):number{
+  return nums.reduce((total, num) => total + num, 0);
+}
+
+const totalBill = addAllNumbers(55,70,24);
+console.log(totalBill);
+
+// Rest params with arrays
+function mergeArrays(...arrays: number[][]): number[] {
+  return arrays.flat();
+}
+
+const combined = mergeArrays([1, 2], [3, 4], [5, 6]);
+console.log(combined); // [1, 2, 3, 4, 5, 6]
