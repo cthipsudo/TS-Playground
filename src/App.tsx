@@ -1,4 +1,5 @@
 import './scripts/index.ts'
+import './scripts/test.ts'
 import './App.css'
 import { useEffect, useState } from 'react';
 
@@ -8,7 +9,7 @@ const fetchPokemon = async ():Promise<[{name:string, url:string}]> => {
     throw new Error(`Failed to fetch pokemon`);
   }
   const data = await results.json();
-  console.log(data);
+  //console.log(data);
 
   return data.results;
 }
