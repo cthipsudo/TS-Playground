@@ -61,3 +61,29 @@ function processValue(value:unknown){
 console.log(processValue('Hello, TypeScript!')); // The value is a string: Hello, TypeScript!
 console.log(processValue(42)); // The value is a number: 42
 console.log(processValue(true)); 
+
+// Objects and Arrays 
+const tomato = { name: 'Tomato', price: 2 };
+const potato = { name: 'Potato', price: 1 };
+const carrot = { name: 'Carrot' };
+
+// let vegetables: { name: string; price: number }[] = [tomato, potato, carrot]; // carrot throws an error
+
+// const vegetables: {name: string, price?: number}[] = [tomato, potato, carrot] // carrot no longer throws an error because price is optional
+
+const vegetables: {readonly name:string, readonly price?: number}[] = [tomato, potato, carrot]; // This is immutable now
+
+vegetables[0].name = 'turnip'; // error here
+
+const vegetables2: readonly {name:string, price?: number}[] = [tomato, potato, carrot];// makes the whole array immutable
+vegetables2.pop(); // error here, can't use array methods.
+
+// An example with both
+const vegetables3: readonly {readonly name:string, readonly price?: number}[] = [tomato, potato, carrot];
+vegetables3.push(potato); // can't use array methods
+vegetables3[2].price = 3; // can't update properties
+
+console.log(vegetables);
+
+
+
