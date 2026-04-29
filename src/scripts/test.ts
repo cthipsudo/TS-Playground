@@ -148,3 +148,17 @@ console.log(firstEmployee);
 
 const secondEmployee = createEmployee({id: 2});
 console.log(secondEmployee);
+
+// Type Aliases
+
+type User = {
+  name: string,
+  age: number
+}
+
+function getUserDetails(user: User):string {
+  return `${user.name}, ${user.age} years old`;
+}
+
+const user: User = {name: 'Alice', age: 21};
+console.log(getUserDetails(user));
