@@ -137,3 +137,14 @@ function mergeArrays(...arrays: number[][]): number[] {
 
 const combined = mergeArrays([1, 2], [3, 4], [5, 6]);
 console.log(combined); // [1, 2, 3, 4, 5, 6]
+
+// objects with specific properties
+function createEmployee({id}: {id: number}): {id: number, isActive: boolean}{
+  return {id: id, isActive : id % 2 === 0};
+}
+
+const firstEmployee = createEmployee({id: 1});
+console.log(firstEmployee);
+
+const secondEmployee = createEmployee({id: 2});
+console.log(secondEmployee);
