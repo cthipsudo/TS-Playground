@@ -85,5 +85,32 @@ vegetables3[2].price = 3; // can't update properties
 
 console.log(vegetables);
 
+// return types
+
+// inferred returns
+function squareNum(num: number) {
+  return num*num;
+}
+
+console.log(squareNum(2)); // typescript infers the return type is a number
+
+
+// explicit returns
+function cubeNum(num: number):number{
+  return num*num*num;
+}
+
+console.log(cubeNum(3)); // explicted return type of number
+
+const hasDiscount = false;
+
+function priceUp(num: number):number | string {
+  if(hasDiscount) {
+    return 'Discounted!'; // errors if return type does not include a string
+  }
+  return num + 1;
+}
+
+console.log(priceUp(2));
 
 
