@@ -53,7 +53,7 @@ export default function ProductSearch() {
         <label htmlFor="search-box">Search for Products</label>
         <br />
         <input
-          onChange={search}
+          onChange={(e) => console.log(e)}
           type="text"
           id="search-box"
           name="search-box"
