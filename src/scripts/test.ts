@@ -564,3 +564,35 @@ function filterByCategory<T extends {category: Categories}>(products: T[], categ
   return products.filter((p) => p.category === category);
 }
 
+
+
+const cart = [
+  { id: 1, name: "Dog Food", price: 39, quantity: 2, category: "food" },
+  { id: 2, name: "Cat Toy", price: 15, quantity: 1, category: "toys" },
+  { id: 3, name: "Dog Leash", price: 25, quantity: 3, category: "accessories" },
+  { id: 4, name: "Cat Tree", price: 89, quantity: 1, category: "furniture" },
+]
+
+// return 
+// {
+//   totalItems: 7,          // sum of all quantities
+//   totalCost: 178,         // sum of (price * quantity) for each item
+//   mostExpensive: "Cat Tree", // name of highest price item
+//   categories: ["food", "toys", "accessories", "furniture"] // unique categories
+// }
+
+function getCartSummary(cart){
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalCost = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)
+  const mostExpensive = cart.sort((a,b) => b.price - a.price)[0];
+  const categories = [...new Set(cart.map(item => item.category))];
+  return { totalItems, totalCost, mostExpensive: mostExpensive.name, categories}
+}
+
+console.log(getCartSummary(cart));
+
+// Deduplicate an array
+//[...new Set()]
+
+// Deduplicate a field from an array of objects
+//[...new Set(array.map(item => item.field))]
