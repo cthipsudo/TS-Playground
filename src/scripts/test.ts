@@ -507,3 +507,60 @@ let user6 = { name: "Albert", age: 30 };
 
 console.log(getProperty(user6, 'name'));
 console.log(getProperty(user6, 'age'));
+
+/*=================================================================*/
+
+const products: Product[] = [
+  {
+    id: 1,
+    name: "Dog Food",
+    originalPrice: 50,
+    salePrice: 39,
+    inStock: true,
+    category: "food"
+  },
+  {
+    id: 2,
+    name: "Cat Toy",
+    originalPrice: 20,
+    salePrice: 15,
+    inStock: true,
+    category: "toys"
+  },
+  {
+    id: 3,
+    name: "Fish Tank",
+    originalPrice: 200,
+    salePrice: 150,
+    inStock: false,
+    category: "habitats"
+  },
+]
+
+/* 
+Define a Product interface for the product object
+The category field should only accept three possible values: "food", "toys", or "habitats" — not any string
+Fully type the filterByCategory function — parameters and return type
+Type the products array using your interface
+
+Bonus if you have time:
+Make filterByCategory generic so it could work with any array of objects that have a category field — not just products.
+*/
+
+type Categories = 'food' | 'toys' | 'habitats';
+
+interface Product {
+  id: number,
+  name: string,
+  originalPrice: number,
+  salePrice: number,
+  inStock: boolean,
+  category: Categories
+}
+
+
+
+function filterByCategory<T extends {category: Categories}>(products: T[], category: Categories): T[] {
+  return products.filter((p) => p.category === category);
+}
+

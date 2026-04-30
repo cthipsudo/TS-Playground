@@ -2,6 +2,7 @@ import './scripts/index.ts'
 import './scripts/test.ts'
 import './App.css'
 import { useEffect, useState } from 'react';
+import ProductSearch from './components/ProductSearch.tsx';
 
 const fetchPokemon = async ():Promise<[{name:string, url:string}]> => {
   const results = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=60&offset=60`);
@@ -24,7 +25,8 @@ useEffect(() => {
 
   return (
     <>
-      <div>
+    <ProductSearch />
+      {/* <div>
         <ul>
           {
             pokemons.map((item, index) => {
@@ -36,7 +38,8 @@ useEffect(() => {
             }) 
           }
         </ul>
-      </div>
+      </div> */}
+
     </>
   )
 }
