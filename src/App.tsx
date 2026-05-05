@@ -1,8 +1,8 @@
-import "./scripts/index.ts";
-import "./scripts/test.ts";
+// import "./scripts/index.ts";
+// import "./scripts/test.ts";
 import "./App.css";
 import { useEffect, useState } from "react";
-import ShoppingCart from "./components/ShoppingCart.tsx";
+import ProductCatalog from "./components/ProductCatalog";
 
 const fetchPokemon = async (): Promise<[{ name: string; url: string }]> => {
   const results = await fetch(
@@ -26,7 +26,9 @@ function App() {
 
   return (
     <>
-      <ShoppingCart />
+      <ProductCatalog />
+      {/* <QuantitySelector /> */}
+      {/* <ShoppingCart /> */}
       {/* <div>
         <ul>
           {

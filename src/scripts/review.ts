@@ -237,3 +237,149 @@ function liveDangerously(x?: number | null) {
   // No error
   console.log(x!.toFixed());
 }
+
+// NARROWING
+// =======================================================================================================||==============================================================================
+
+// typeof narrow
+// Used to handle union types and allow certain cases to pass
+function padLeft(padding: number | string, input: string): string {
+  if (typeof padding === "number") {
+    return " ".repeat(padding) + input;
+  }
+  return padding + input;
+}
+
+function printAll(strs: string | string[] | null) {
+  if (typeof strs === "object") {
+    for (const s of strs) {
+      // 'strs' is possibly 'null'.  Because null is an object
+      console.log(s);
+    }
+  } else if (typeof strs === "string") {
+    console.log(strs);
+  } else {
+    // do nothing
+  }
+}
+
+// Truthy Narrowing
+// both of these result in 'true'
+// ====================================================================================================
+Boolean("hello"); // type: boolean, value: true
+!!"world"; // type: true,    value: true
+
+function printAll2(strs: string | string[] | null) {
+  if (strs && typeof strs === "object") {
+    for (const s of strs) {
+      // Note how the error is gone once we check if strs is truthy
+      console.log(s);
+    }
+  } else if (typeof strs === "string") {
+    console.log(strs);
+  }
+}
+
+// EQUALITY NARROWING
+// Typescript uses switch statements and equality  checks like, ===, !==, == and != to narrow types
+// ====================================================================================================
+function example(x: string | number, y: string | boolean) {
+  if (x === y) {
+    // We can now call any 'string' method on 'x' or 'y'.
+    // If x equals y, now we can use string methods
+    x.toUpperCase();
+    y.toLowerCase();
+  } else {
+    console.log(x);
+    console.log(y);
+  }
+}
+
+interface Container {
+  value: number | null | undefined;
+}
+
+function multiplyValue(container: Container, factor: number) {
+  // Remove both 'null' and 'undefined' from the type.
+  if (container.value != null) {
+    // == or != null checks if its undefined as well
+    console.log(container.value);
+
+    // Now we can safely multiply 'container.value'.
+    container.value *= factor;
+  }
+}
+
+// in operator NARROWING
+// Determines if an object has a property with a name
+// ====================================================================================================
+type Fish = { swim: () => void };
+type Bird = { fly: () => void };
+
+function move(animal: Fish | Bird) {
+  if ("swim" in animal) {
+    return animal.swim();
+  }
+
+  return animal.fly();
+}
+
+// instanceof narrowing
+//JavaScript has an operator for checking whether or not a value is an “instance” of another value. Mostly for classes
+// ====================================================================================================
+function logValue(x: Date | string) {
+  if (x instanceof Date) {
+    console.log(x.toUTCString());
+  } else {
+    console.log(x.toUpperCase());
+  }
+}
+
+// Control Flow Analysis
+// This analysis of code based on reachability is called control flow analysis, and TypeScript
+// uses this flow analysis to narrow types as it encounters type guards and assignments.
+// When a variable is analyzed, control flow can split off and re-merge over and over again, and that
+// variable can be observed to have a different type at each point.
+// ====================================================================================================
+function example() {
+  let c: string | number | boolean;
+  c = Math.random() < 0.5;
+  console.log(c); // let x: boolean
+
+  if (Math.random() < 0.5) {
+    c = "hello";
+    console.log(c); // let x: string
+  } else {
+    c = 100;
+    console.log(c); // let x: number
+  }
+  return x; // let x: string | number
+}
+
+// type predicates
+// A user defined type guard
+// ====================================================================================================
+// "pet is Fish" is our type predicate in this example.
+function isFish(pet: Fish | Bird): pet is Fish {
+  return (pet as Fish).swim !== undefined; // return pet.swim if its a fish
+}
+
+// Both calls to 'swim' and 'fly' are now okay.
+let pet = getSmallPet();
+
+if (isFish(pet)) {
+  pet.swim();
+} else {
+  pet.fly();
+}
+// You may use the type guard isFish to filter an array of Fish | Bird and obtain an array of Fish:
+const zoo: (Fish | Bird)[] = [getSmallPet(), getSmallPet(), getSmallPet()];
+const underWater1: Fish[] = zoo.filter(isFish);
+// or, equivalently
+const underWater2: Fish[] = zoo.filter(isFish) as Fish[];
+
+// The predicate may need repeating for more complex examples
+const underWater3: Fish[] = zoo.filter((pet): pet is Fish => {
+  if (pet.name === "sharkey") return false;
+  return isFish(pet);
+});

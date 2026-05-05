@@ -1,11 +1,9 @@
-console.log('This is typescript!');
+let name: string = "Oscar";
+name = "Champ";
 
-let name: string = 'Oscar';
-name = 'Champ';
+console.log(name.toUpperCase());
 
-console.log(name.toUpperCase())
-
-const numbers: number[] = [1,2,3];
+const numbers: number[] = [1, 2, 3];
 //numbers.push('2'); Does not work!!
 numbers.push(4);
 
@@ -13,9 +11,9 @@ console.log(numbers.length);
 
 // Union Types:
 
-let value: string|number;
+let value: string | number;
 
-value = 'Hello';
+value = "Hello";
 console.log(value.toUpperCase());
 
 value = 32;
@@ -23,22 +21,22 @@ console.log(value + value);
 
 // value = false; Does not work
 
-function printId(id: number|string) {
+function printId(id: number | string) {
   console.log(id);
 }
 
-printId('doggie');
+printId("doggie");
 printId(22);
 printId(true);
 
 // Custom Types:
 
-type ID = number|string;
+type ID = number | string;
 
-function printId2(id:ID) {
+function printId2(id: ID) {
   console.log(id);
 }
-printId2('doggie');
+printId2("doggie");
 printId2(22);
 printId2(true);
 
@@ -48,38 +46,49 @@ printId2(true);
 
 // Using unknown instead of any
 
-function processValue(value:unknown){
-  if(typeof value === 'string'){
-    return `This is a string ${value}`; 
-  } else if (typeof value === 'number'){
+function processValue(value: unknown) {
+  if (typeof value === "string") {
+    return `This is a string ${value}`;
+  } else if (typeof value === "number") {
     return `This is a number:${value}`;
   } else {
-    return 'The Value is unknown';
+    return "The Value is unknown";
   }
 }
 
-console.log(processValue('Hello, TypeScript!')); // The value is a string: Hello, TypeScript!
+console.log(processValue("Hello, TypeScript!")); // The value is a string: Hello, TypeScript!
 console.log(processValue(42)); // The value is a number: 42
-console.log(processValue(true)); 
+console.log(processValue(true));
 
-// Objects and Arrays 
-const tomato = { name: 'Tomato', price: 2 };
-const potato = { name: 'Potato', price: 1 };
-const carrot = { name: 'Carrot' };
+// Objects and Arrays
+const tomato = { name: "Tomato", price: 2 };
+const potato = { name: "Potato", price: 1 };
+const carrot = { name: "Carrot" };
 
 // let vegetables: { name: string; price: number }[] = [tomato, potato, carrot]; // carrot throws an error
 
 // const vegetables: {name: string, price?: number}[] = [tomato, potato, carrot] // carrot no longer throws an error because price is optional
 
-const vegetables: {readonly name:string, readonly price?: number}[] = [tomato, potato, carrot]; // This is immutable now
+const vegetables: { readonly name: string; readonly price?: number }[] = [
+  tomato,
+  potato,
+  carrot,
+]; // This is immutable now
 
-vegetables[0].name = 'turnip'; // error here
+vegetables[0].name = "turnip"; // error here
 
-const vegetables2: readonly {name:string, price?: number}[] = [tomato, potato, carrot];// makes the whole array immutable
+const vegetables2: readonly { name: string; price?: number }[] = [
+  tomato,
+  potato,
+  carrot,
+]; // makes the whole array immutable
 vegetables2.pop(); // error here, can't use array methods.
 
 // An example with both
-const vegetables3: readonly {readonly name:string, readonly price?: number}[] = [tomato, potato, carrot];
+const vegetables3: readonly {
+  readonly name: string;
+  readonly price?: number;
+}[] = [tomato, potato, carrot];
 vegetables3.push(potato); // can't use array methods
 vegetables3[2].price = 3; // can't update properties
 
@@ -89,24 +98,23 @@ console.log(vegetables);
 
 // inferred returns
 function squareNum(num: number) {
-  return num*num;
+  return num * num;
 }
 
 console.log(squareNum(2)); // typescript infers the return type is a number
 
-
 // explicit returns
-function cubeNum(num: number):number{
-  return num*num*num;
+function cubeNum(num: number): number {
+  return num * num * num;
 }
 
 console.log(cubeNum(3)); // explicted return type of number
 
 const hasDiscount = false;
 
-function priceUp(num: number):number | string {
-  if(hasDiscount) {
-    return 'Discounted!'; // errors if return type does not include a string
+function priceUp(num: number): number | string {
+  if (hasDiscount) {
+    return "Discounted!"; // errors if return type does not include a string
   }
   return num + 1;
 }
@@ -115,19 +123,19 @@ console.log(priceUp(2));
 
 // Rest Params with words
 // using rest lets you handle multiple arguments if the total amount isn't fixed
-function joinWords(...words:string[]):string{
-  return words.join(' ');
+function joinWords(...words: string[]): string {
+  return words.join(" ");
 }
 
-const greeting = joinWords('Hello', 'My dude', "I'm", 'so', 'excited');
+const greeting = joinWords("Hello", "My dude", "I'm", "so", "excited");
 console.log(greeting);
 
 // Rest params with numbers
-function addAllNumbers(...nums: number[]):number{
+function addAllNumbers(...nums: number[]): number {
   return nums.reduce((total, num) => total + num, 0);
 }
 
-const totalBill = addAllNumbers(55,70,24);
+const totalBill = addAllNumbers(55, 70, 24);
 console.log(totalBill);
 
 // Rest params with arrays
@@ -139,38 +147,41 @@ const combined = mergeArrays([1, 2], [3, 4], [5, 6]);
 console.log(combined); // [1, 2, 3, 4, 5, 6]
 
 // objects with specific properties
-function createEmployee({id}: {id: number}): {id: number, isActive: boolean}{
-  return {id: id, isActive : id % 2 === 0};
+function createEmployee({ id }: { id: number }): {
+  id: number;
+  isActive: boolean;
+} {
+  return { id: id, isActive: id % 2 === 0 };
 }
 
-const firstEmployee = createEmployee({id: 1});
+const firstEmployee = createEmployee({ id: 1 });
 console.log(firstEmployee);
 
-const secondEmployee = createEmployee({id: 2});
+const secondEmployee = createEmployee({ id: 2 });
 console.log(secondEmployee);
 
 // Type Aliases
 
 type User = {
-  name: string,
-  age: number
-}
+  name: string;
+  age: number;
+};
 
-function getUserDetails(user: User):string {
+function getUserDetails(user: User): string {
   return `${user.name}, ${user.age} years old`;
 }
 
-const user: User = {name: 'Alice', age: 21};
+const user: User = { name: "Alice", age: 21 };
 console.log(getUserDetails(user));
-const errorUser : User = {name: 'Bob'}; // Typescript will flag that age is missing
+const errorUser: User = { name: "Bob" }; // Typescript will flag that age is missing
 
 // Intersection Type
 // A type that must satisfy all conditions, similar to union by not optional
 
 type Address = {
-  city: string,
-  state: string
-}
+  city: string;
+  state: string;
+};
 
 type UserWithAddress = User & Address;
 
@@ -182,7 +193,7 @@ const user3: UserWithAddress = {
   name: "Alice",
   age: 30,
   city: "New York",
-  state: "New York"
+  state: "New York",
 };
 
 console.log(getUserDetails2(user3));
@@ -192,9 +203,9 @@ console.log(getUserDetails2(user3));
 // Interface is a blueprint for an object
 
 interface UserI {
-  name: string,
-  age: number,
-  address: string
+  name: string;
+  age: number;
+  address: string;
 }
 
 function getUserInfo(user: UserI): string {
@@ -214,46 +225,46 @@ console.log(getUserInfo(userI));
 // Interfaces:
 
 interface Address4 {
-  city: string,
-  state: string
+  city: string;
+  state: string;
 }
 
-interface User4 extends Address4{
-  name: string,
-  age: number
+interface User4 extends Address4 {
+  name: string;
+  age: number;
 }
 
 const user8: User4 = {
-  name: 'Bob',
+  name: "Bob",
   age: 21,
-  city: 'Toronto',
-  state: 'Canada'
-}
+  city: "Toronto",
+  state: "Canada",
+};
 
 // Type Alias:
 
 type Address5 = {
-  city: string,
-  state: string
-}
+  city: string;
+  state: string;
+};
 
 type User5 = {
-  name: string,
-  age: number
-} & Address5
+  name: string;
+  age: number;
+} & Address5;
 
 const user5: User5 = {
-  name: 'Sam',
+  name: "Sam",
   age: 22,
-  city: 'Williams Town',
-  state: 'England'
-}
+  city: "Williams Town",
+  state: "England",
+};
 
 // Advanced Interfaces:
 // Optional Properties and ReadOnly
 interface Player {
-  readonly name: string,
-  score?: number
+  readonly name: string;
+  score?: number;
 }
 
 // type Player2 = {
@@ -261,21 +272,21 @@ interface Player {
 //   score? : number
 // }
 
-const player1 : Player = {
-  name: 'JON',
-  score: 2
-}
+const player1: Player = {
+  name: "JON",
+  score: 2,
+};
 // const player2: Player2 = {
 //   name: 'BEN',
 // }
 
 // function defined by interface
 interface Add {
-  (a: number, b: number) : number;
+  (a: number, b: number): number;
 }
 
-const add: Add = (a,b) => a+b;
-console.log(add(2,2)) // Outputs 4 
+const add: Add = (a, b) => a + b;
+console.log(add(2, 2)); // Outputs 4
 
 // Index Signatures
 interface StringDictionary {
@@ -306,51 +317,50 @@ const obj: C = {
   propC: true,
 };
 
-
 // When to use interfaces vs types:
 // Use interfaces when you need to define object shapes, especially if you plan on extending them, also use interfaces if you need declaration merging
 // use type aliases for more complex types, such as unions or intersections
 
 // Tuples and Enums
 // A Tuple a special array that has a fixed number of elements, the order is also fixed.
-const user10: [ string, number] = ['Nancy', 21];
+const user10: [string, number] = ["Nancy", 21];
 
 console.log(user10[0]);
 console.log(user10[1]);
 
 // A Tuple with optional elements
-const player4: [string, number, boolean?] = ['Benny', 100];
+const player4: [string, number, boolean?] = ["Benny", 100];
 console.log(player4[0]);
 console.log(player4[1]);
 
 // Tuple with readonly
 const coordinates: readonly [number, number] = [10, 20];
-coordinates[0] = 50; // readonly prevents modifying all tuple values 
+coordinates[0] = 50; // readonly prevents modifying all tuple values
 
 // Enums
 // By default TypeScript assigns values, starting from 0
 enum Status {
-  Pending,   // 0
+  Pending, // 0
   InProgress, // 1
-  Completed,  // 2
+  Completed, // 2
 }
 
-function getStatusText(status: Status):string {
-  switch(status){
+function getStatusText(status: Status): string {
+  switch (status) {
     case Status.Pending:
-      return 'Order is pending';
+      return "Order is pending";
     case Status.InProgress:
-      return 'Order is in progress';
+      return "Order is in progress";
     case Status.Completed:
-      return 'Order is completed';
-    default: 
-      return 'unknown status'
+      return "Order is completed";
+    default:
+      return "unknown status";
   }
 }
 
 console.log(getStatusText(Status.InProgress)); // Outputs: "Order is in progress"
 
-console.log(Status.Pending);   // Output: 0
+console.log(Status.Pending); // Output: 0
 console.log(Status.Completed); // Output: 2
 
 // Custom values in Enums
@@ -360,13 +370,13 @@ enum orderStatus {
   Delivered = 10,
 }
 
-console.log(orderStatus.Shipped) // Output: 5
+console.log(orderStatus.Shipped); // Output: 5
 
 enum Direction {
   Up = "UP",
   Down = "DOWN",
   Left = "LEFT",
-  Right = "RIGHT"
+  Right = "RIGHT",
 }
 
 console.log(Direction.Up); // Outputs: "UP"
@@ -377,25 +387,25 @@ console.log(Direction.Up); // Outputs: "UP"
 // Type assertions
 // Tells the complier to treat the value as a specific type:
 
-const value2: unknown = 'Hello, world!!'
+const value2: unknown = "Hello, world!!";
 
 const strLength: number = (value2 as string).length; // Starts out as unknown but here you specific it to be a string
 
 console.log(strLength);
 
 // Alternative way to write an assertion
-let num = <number>(10);
+let num = <number>10;
 
 // Type unknown
-// A safer alternative to any, typescript requires a typecheck before using it 
+// A safer alternative to any, typescript requires a typecheck before using it
 let data2: unknown;
 
 data2 = "Unknown";
-data2 = 21
+data2 = 21;
 data2 = true;
-data2 = 'Hello'
+data2 = "Hello";
 
-if (typeof data2 === 'string') {
+if (typeof data2 === "string") {
   console.log(data2.toUpperCase());
 }
 
@@ -428,32 +438,32 @@ function checkStatus(status: Status4): void {
 
 // Basic Generic Function
 
-function identity<T>(value: T):T {
+function identity<T>(value: T): T {
   return value;
 }
 
-console.log(identity<string>('Hello')); // Output: "Hello"
+console.log(identity<string>("Hello")); // Output: "Hello"
 console.log(identity<number>(42)); // Output: 42
 
 // <T> is the generic type parameter, allowing the identity function to work with any type.
 
 // Generics with Arrays:
-// This ensures it returns the samve type of array it recieves 
-function reverseArray<T>(arr: T[]):T[]{
+// This ensures it returns the samve type of array it recieves
+function reverseArray<T>(arr: T[]): T[] {
   return arr.reverse();
 }
 
-console.log(reverseArray([1,2,3]));
+console.log(reverseArray([1, 2, 3]));
 console.log(reverseArray(["a", "b", "c"]));
 
 // Generics with Interfaces:
 // Allows to storing different types while maintaining consistency
 interface StorageBox<T> {
-  content: T
+  content: T;
 }
 
-const numberBox: StorageBox<number> = { content: 42};
-const nameBox: StorageBox<string> = { content: 'Benny'};
+const numberBox: StorageBox<number> = { content: 42 };
+const nameBox: StorageBox<string> = { content: "Benny" };
 
 console.log(numberBox.content);
 console.log(nameBox.content);
@@ -482,31 +492,31 @@ stringQueue.enqueue("World");
 console.log(stringQueue.dequeue()); // Output: "Hello"
 
 // Generics with multiple parameters
-function swap<T, U>(first: T, second: U): [U,T] {
+function swap<T, U>(first: T, second: U): [U, T] {
   return [second, first];
 }
 
-console.log(swap<string, number>('Oscar', 21)); // Outputs [21, 'Oscar'];
+console.log(swap<string, number>("Oscar", 21)); // Outputs [21, 'Oscar'];
 console.log(swap<boolean, number>(false, 42)); // Outputs: [42, false];
 
 // Generics with contraints
 // Contraits ensure the type has specific properties
 
-function getLength<T extends {length: number}>(item: T):number {
+function getLength<T extends { length: number }>(item: T): number {
   return item.length;
 }
 
-console.log(getLength('Hello')); // Output: 5
-console.log(getLength([1,2,3])); // Output: 3
+console.log(getLength("Hello")); // Output: 5
+console.log(getLength([1, 2, 3])); // Output: 3
 
-function getProperty<T,K extends keyof T>(obj: T, key:K):T[K]{
-  return obj[key]
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
 }
 
 let user6 = { name: "Albert", age: 30 };
 
-console.log(getProperty(user6, 'name'));
-console.log(getProperty(user6, 'age'));
+console.log(getProperty(user6, "name"));
+console.log(getProperty(user6, "age"));
 
 /*=================================================================*/
 
@@ -517,7 +527,7 @@ const products: Product[] = [
     originalPrice: 50,
     salePrice: 39,
     inStock: true,
-    category: "food"
+    category: "food",
   },
   {
     id: 2,
@@ -525,7 +535,7 @@ const products: Product[] = [
     originalPrice: 20,
     salePrice: 15,
     inStock: true,
-    category: "toys"
+    category: "toys",
   },
   {
     id: 3,
@@ -533,9 +543,9 @@ const products: Product[] = [
     originalPrice: 200,
     salePrice: 150,
     inStock: false,
-    category: "habitats"
+    category: "habitats",
   },
-]
+];
 
 /* 
 Define a Product interface for the product object
@@ -547,33 +557,32 @@ Bonus if you have time:
 Make filterByCategory generic so it could work with any array of objects that have a category field — not just products.
 */
 
-type Categories = 'food' | 'toys' | 'habitats';
+type Categories = "food" | "toys" | "habitats";
 
 interface Product {
-  id: number,
-  name: string,
-  originalPrice: number,
-  salePrice: number,
-  inStock: boolean,
-  category: Categories
+  id: number;
+  name: string;
+  originalPrice: number;
+  salePrice: number;
+  inStock: boolean;
+  category: Categories;
 }
 
-
-
-function filterByCategory<T extends {category: Categories}>(products: T[], category: Categories): T[] {
+function filterByCategory<T extends { category: Categories }>(
+  products: T[],
+  category: Categories,
+): T[] {
   return products.filter((p) => p.category === category);
 }
-
-
 
 const cart = [
   { id: 1, name: "Dog Food", price: 39, quantity: 2, category: "food" },
   { id: 2, name: "Cat Toy", price: 15, quantity: 1, category: "toys" },
   { id: 3, name: "Dog Leash", price: 25, quantity: 3, category: "accessories" },
   { id: 4, name: "Cat Tree", price: 89, quantity: 1, category: "furniture" },
-]
+];
 
-// return 
+// return
 // {
 //   totalItems: 7,          // sum of all quantities
 //   totalCost: 178,         // sum of (price * quantity) for each item
@@ -581,18 +590,124 @@ const cart = [
 //   categories: ["food", "toys", "accessories", "furniture"] // unique categories
 // }
 
-function getCartSummary(cart){
+function getCartSummary(cart) {
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-  const totalCost = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)
-  const mostExpensive = cart.sort((a,b) => b.price - a.price)[0];
-  const categories = [...new Set(cart.map(item => item.category))];
-  return { totalItems, totalCost, mostExpensive: mostExpensive.name, categories}
+  const totalCost = cart.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0,
+  );
+  const mostExpensive = cart.sort((a, b) => b.price - a.price)[0];
+  const categories = [...new Set(cart.map((item) => item.category))];
+  return {
+    totalItems,
+    totalCost,
+    mostExpensive: mostExpensive.name,
+    categories,
+  };
 }
 
-console.log(getCartSummary(cart));
+// console.log(getCartSummary(cart));
 
 // Deduplicate an array
 //[...new Set()]
 
 // Deduplicate a field from an array of objects
 //[...new Set(array.map(item => item.field))]
+
+const catalog = [
+  {
+    id: 1,
+    name: "Dog Food",
+    price: 39,
+    category: "food",
+    rating: 4.5,
+    inStock: true,
+  },
+  {
+    id: 2,
+    name: "Cat Toy",
+    price: 15,
+    category: "toys",
+    rating: 3.8,
+    inStock: true,
+  },
+  {
+    id: 3,
+    name: "Fish Tank",
+    price: 150,
+    category: "habitats",
+    rating: 4.9,
+    inStock: false,
+  },
+  {
+    id: 4,
+    name: "Dog Leash",
+    price: 25,
+    category: "accessories",
+    rating: 4.2,
+    inStock: true,
+  },
+  {
+    id: 5,
+    name: "Cat Tree",
+    price: 89,
+    category: "furniture",
+    rating: 3.5,
+    inStock: true,
+  },
+  {
+    id: 6,
+    name: "Bird Cage",
+    price: 120,
+    category: "habitats",
+    rating: 4.7,
+    inStock: true,
+  },
+  {
+    id: 7,
+    name: "Dog Treats",
+    price: 12,
+    category: "food",
+    rating: 4.1,
+    inStock: false,
+  },
+];
+
+/*
+{
+  averageRating: 4.24,        // average rating across all products, rounded to 2 decimal places
+  highestRated: "Fish Tank",  // name of highest rated product
+  inStockCount: 5,            // number of products in stock
+  categoryCounts: {           // count of products per category
+    food: 2,
+    toys: 1,
+    habitats: 2,
+    accessories: 1,
+    furniture: 1
+  }
+}
+*/
+function getCatalogStats() {
+  const averageRating =
+    catalog.reduce((acc, item) => acc + item.rating, 0) / catalog.length;
+  const highestRated = catalog.sort((a, b) => b.rating - a.rating)[0].name;
+  const inStockCount = catalog.filter((item) => item.inStock).length;
+  const categoryCounts = catalog
+    .map((item) => {
+      return item.category;
+    })
+    .reduce((allCategories, catName) => {
+      const currCount = allCategories[catName] ?? 0;
+      allCategories[catName] = currCount + 1;
+      return allCategories;
+    }, {});
+
+  return {
+    averageRating: Math.round(averageRating * 100) / 100,
+    highestRated,
+    inStockCount,
+    categoryCounts,
+  };
+}
+
+console.log(getCatalogStats());
