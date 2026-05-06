@@ -1,5 +1,6 @@
 // import "./scripts/index.ts";
 // import "./scripts/test.ts";
+import "./scripts/exercises.ts";
 import "./App.css";
 import { useEffect, useState } from "react";
 import ProductCatalog from "./components/ProductCatalog";
@@ -26,7 +27,7 @@ function App() {
 
   return (
     <>
-      <ProductCatalog />
+      {/* <ProductCatalog /> */}
       {/* <QuantitySelector /> */}
       {/* <ShoppingCart /> */}
       {/* <div>
