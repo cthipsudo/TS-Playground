@@ -27,7 +27,7 @@ function App() {
 
   return (
     <>
-      <CartApp />
+      {/* <CartApp /> */}
       {/* <PromoCode /> */}
       {/* <ProductCatalog /> */}
       {/* <QuantitySelector /> */}
