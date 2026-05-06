@@ -3,7 +3,7 @@
 import "./scripts/exercises.ts";
 import "./App.css";
 import { useEffect, useState } from "react";
-import ProductCatalog from "./components/ProductCatalog";
+import PromoCode from "./components/PromoCode.tsx";
 
 const fetchPokemon = async (): Promise<[{ name: string; url: string }]> => {
   const results = await fetch(
@@ -27,6 +27,7 @@ function App() {
 
   return (
     <>
+      <PromoCode />
       {/* <ProductCatalog /> */}
       {/* <QuantitySelector /> */}
       {/* <ShoppingCart /> */}

@@ -72,11 +72,9 @@ type ProductUpdate = Partial<Product>;
 
 type ReadonlyProduct = Readonly<Product>;
 
-function formatPreview(prod: Product): ProductPreview {
+function formatPreview({id, name, price}: Product): ProductPreview {
   return {
-    id: prod.id,
-    name: prod.name,
-    price: prod.price,
+    id, name, price
   };
 }
 
